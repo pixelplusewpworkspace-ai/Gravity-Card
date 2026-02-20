@@ -494,17 +494,18 @@ gsap.to('.hero-glow', {
     ease: 'sine.inOut'
 });
 
-// Gravity-Card System Orbit Logic
 const orbitIconsList = document.querySelectorAll('.orbit-icon');
 const gravityOrbitData = [];
-const isMobile = window.innerWidth < 768;
-const baseRadius = isMobile ? 80 : 110;
+const screenWidth = window.innerWidth;
+const isMobile = screenWidth < 768;
+const isSmallMobile = screenWidth < 400;
+const baseRadius = isSmallMobile ? 65 : (isMobile ? 85 : 110);
 
 orbitIconsList.forEach((icon, index) => {
     gravityOrbitData.push({
         el: icon,
         angle: (index / orbitIconsList.length) * Math.PI * 2,
-        radius: baseRadius + (Math.random() * 20), // Slight variation in radius
+        radius: baseRadius + (Math.random() * 15), // Slight variation
         speed: 0.005 + (Math.random() * 0.005),
         isPulled: false
     });
@@ -564,10 +565,9 @@ function triggerGravityPull() {
 // Trigger pull every 4-7 seconds
 setInterval(triggerGravityPull, 5000);
 
-// Event Horizon Orbit Logic (CTA Section)
 const horizonIcons = document.querySelectorAll('.horizon-orbit');
 const horizonData = [];
-const horizRadius = isMobile ? 120 : 180;
+const horizRadius = isSmallMobile ? 100 : (isMobile ? 130 : 180);
 
 horizonIcons.forEach((icon, index) => {
     horizonData.push({
