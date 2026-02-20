@@ -497,12 +497,14 @@ gsap.to('.hero-glow', {
 // Gravity-Card System Orbit Logic
 const orbitIconsList = document.querySelectorAll('.orbit-icon');
 const gravityOrbitData = [];
+const isMobile = window.innerWidth < 768;
+const baseRadius = isMobile ? 80 : 110;
 
 orbitIconsList.forEach((icon, index) => {
     gravityOrbitData.push({
         el: icon,
         angle: (index / orbitIconsList.length) * Math.PI * 2,
-        radius: 110 + (Math.random() * 20), // Slight variation in radius
+        radius: baseRadius + (Math.random() * 20), // Slight variation in radius
         speed: 0.005 + (Math.random() * 0.005),
         isPulled: false
     });
@@ -565,12 +567,13 @@ setInterval(triggerGravityPull, 5000);
 // Event Horizon Orbit Logic (CTA Section)
 const horizonIcons = document.querySelectorAll('.horizon-orbit');
 const horizonData = [];
+const horizRadius = isMobile ? 120 : 180;
 
 horizonIcons.forEach((icon, index) => {
     horizonData.push({
         el: icon,
         angle: (index / horizonIcons.length) * Math.PI * 2,
-        radius: 180,
+        radius: horizRadius,
         speed: 0.003, // Slower for immersive feel
     });
 });
