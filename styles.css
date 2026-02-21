@@ -616,3 +616,139 @@ h3,
         padding: 2rem !important;
     }
 }
+
+/* Masterpieces Section */
+.masterpiece-container {
+    perspective: 2000px;
+}
+
+.phone-mockup {
+    width: 300px;
+    height: 600px;
+    background: #111;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+.fabric-texture {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.circuit-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h10v10H10zM30 10h10v10H30zM50 10h10v10H50zM70 10h10v10H70zM90 10h10v10H90zM10 30h10v10H10zM30 30h10v10H30zM50 30h10v10H50zM70 30h10v10H70zM90 30h10v10H90zM10 50h10v10H10zM30 50h10v10H30zM50 50h10v10H50zM70 50h10v10H70zM90 50h10v10H90z' fill='%2300f2ff' fill-opacity='0.1'/%3E%3Cpath d='M15 15v70M35 15v70M55 15v70M75 15v70M95 15v70' stroke='%2300f2ff' stroke-opacity='0.15'/%3E%3C/svg%3E");
+}
+
+.phone-fashion {
+    transform: rotateX(10deg) rotateY(-20deg) translateX(-30px) translateZ(100px);
+}
+
+.phone-tech {
+    transform: rotateX(10deg) rotateY(20deg) translateX(30px) translateZ(0);
+}
+
+.masterpiece-info {
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+@media (max-width: 1100px) {
+    .phone-mockup {
+        width: 280px;
+        height: 580px;
+    }
+
+    .masterpiece-info {
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-top: 2.5rem;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    .masterpiece-container {
+        flex-direction: column;
+        min-height: auto;
+        gap: 6rem;
+        /* Reduced gap for mobile */
+        padding-bottom: 5rem;
+    }
+
+    .masterpiece-phone {
+        position: relative !important;
+        transform: none !important;
+        z-index: 10 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .fashion-info,
+    .tech-info {
+        text-align: center !important;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .phone-mockup {
+        width: 240px;
+        height: 500px;
+    }
+
+    .masterpiece-container {
+        gap: 4rem;
+    }
+
+    .masterpiece-info h4 {
+        font-size: 2rem !important;
+        /* Smaller text for very small screens */
+    }
+}
+
+
+/* Final refinements for Masterpieces */
+.phone-fashion::after {
+    content: '';
+    position: absolute;
+    inset: -50px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.phone-tech::after {
+    content: '';
+    position: absolute;
+    inset: -50px;
+    background: radial-gradient(circle, rgba(0, 112, 255, 0.05) 0%, transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Mobile specific font adjustments for phone screen footers */
+@media (max-width: 1100px) {
+
+    .phone-screen .pb-4 p,
+    .phone-screen .pb-4 span {
+        font-size: 9px !important;
+    }
+}
+
+.masterpiece-info h4 {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}

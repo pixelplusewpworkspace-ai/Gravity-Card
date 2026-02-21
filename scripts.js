@@ -648,3 +648,65 @@ gsap.to(card3d, {
     yoyo: true,
     ease: 'sine.inOut'
 });
+
+// Masterpieces Phone Swap Animation
+const masterpieceTL = gsap.timeline({
+    scrollTrigger: {
+        trigger: "#masterpieces",
+        start: "top top",
+        end: "+=200%",
+        scrub: 1.5,
+        pin: true,
+        anticipatePin: 1
+    }
+});
+
+if (window.innerWidth > 1100) {
+    // Initial states: Info cards hidden and slightly offset for a "slide-in" reveal
+    gsap.set(".fashion-info", { opacity: 0, x: 50 });
+    gsap.set(".tech-info", { opacity: 0, x: -50 });
+
+    masterpieceTL.to("#phone-fashion", {
+        x: -400, // Move further out
+        rotateY: 0,
+        rotateX: 0,
+        z: 0,
+        duration: 3,
+        ease: "power2.inOut"
+    }, 0)
+        .to("#phone-tech", {
+            x: 400, // Move further out
+            rotateY: 0,
+            rotateX: 0,
+            z: 0,
+            duration: 3,
+            ease: "power2.inOut"
+        }, 0)
+        // Reveal info cards with a smooth slide and fade
+        .to(".fashion-info", {
+            opacity: 1,
+            x: -20, // Final position adjustment
+            duration: 1.5,
+            pointerEvents: "auto"
+        }, 1.2)
+        .to(".tech-info", {
+            opacity: 1,
+            x: 20, // Final position adjustment
+            duration: 1.5,
+            pointerEvents: "auto"
+        }, 1.2);
+} else {
+    // Mobile specific reveal
+    gsap.utils.toArray('.masterpiece-phone').forEach(phone => {
+        gsap.from(phone, {
+            scrollTrigger: {
+                trigger: phone,
+                start: "top 85%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+}
