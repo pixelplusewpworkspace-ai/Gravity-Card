@@ -594,3 +594,57 @@ function updateHorizonOrbit() {
     requestAnimationFrame(updateHorizonOrbit);
 }
 updateHorizonOrbit();
+// Price Disruption Reveal
+gsap.utils.toArray('.price-disrupt').forEach(box => {
+    ScrollTrigger.create({
+        trigger: box,
+        start: 'top 75%',
+        onEnter: () => box.classList.add('active'),
+        once: true
+    });
+});
+
+// 3D Card Tilt Effect
+const card3d = document.querySelector('.floating-3d-card');
+const tiltWrapper = document.querySelector('.tilt-wrapper');
+
+if (tiltWrapper && card3d) {
+    tiltWrapper.addEventListener('mousemove', (e) => {
+        const rect = tiltWrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        gsap.to(card3d, {
+            rotateX: rotateX,
+            rotateY: rotateY,
+            scale: 1.05,
+            duration: 0.5,
+            ease: 'power2.out'
+        });
+    });
+
+    tiltWrapper.addEventListener('mouseleave', () => {
+        gsap.to(card3d, {
+            rotateX: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: 'power2.out'
+        });
+    });
+}
+
+// Floating animation for the 3D Card
+gsap.to(card3d, {
+    y: -20,
+    duration: 3,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+});
