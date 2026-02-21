@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROGER | Premium Clothing</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Manrope:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        /* Custom Styles for Premium Feel */
+        :root {
+            --bg-color: #050505;
+            --text-color: #ffffff;
+            --accent-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Manrope', sans-serif;
+            overflow: hidden;
+            /* Prevent scroll on landing page */
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Ambient Round Gradient Background - Smooth & Dark */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 70%);
+            background-size: 150% 150%;
+            animation: breathe 8s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes breathe {
+            0% {
+                background-size: 100% 100%;
+            }
+
+            100% {
+                background-size: 140% 140%;
+            }
+        }
+
+        /* Scanline Effect - Made subtler */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0) 50%,
+                    rgba(0, 0, 0, 0.2) 50%,
+                    rgba(0, 0, 0, 0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.15;
+        }
+
+        /* Typography with Shine Base */
+        .brand-name {
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #555 0%, #fff 50%, #555 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+            animation: shine 5s linear infinite;
+        }
+
+        /* Shine Effect Keyframes - Automatic & Reverse Direction */
+        @keyframes shine {
+            0% {
+                background-position: 200% center;
+            }
+
+            100% {
+                background-position: -200% center;
+            }
+        }
+
+
+
+        /* Link Card Styling - Glassmorphism */
+        .link-card {
+            background: rgba(255, 255, 255, 0.02);
+            /* More transparent */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            /* Stronger blur */
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(255, 255, 255, 1);
+            transform: scale(1.02);
+        }
+
+        .link-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .link-card:hover .link-text,
+        .link-card:hover .link-icon {
+            color: #000;
+        }
+
+        .link-icon {
+            transition: color 0.3s ease;
+        }
+
+        .link-text {
+            transition: color 0.3s ease;
+        }
+
+
+        /* Auto Shine for Special Buttons */
+        .auto-shine {
+            position: relative;
+            overflow: hidden;
+            border-color: rgba(255, 255, 255, 0.4);
+            /* Slightly brighter border */
+        }
+
+        .auto-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    transparent 100%);
+            transform: skewX(-25deg);
+            animation: button-sheen 8s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+            pointer-events: none;
+        }
+
+        @keyframes button-sheen {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            50% {
+                left: 200%;
+                opacity: 0;
+            }
+
+            100% {
+                left: 200%;
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Optimization */
+        @media (max-height: 700px) {
+            .brand-name {
+                font-size: 3rem;
+            }
+        }
+
+        /* Pulsing Green Dot */
+        .pulsing-dot {
+            width: 4px;
+            height: 4px;
+            background-color: #10B981;
+            /* Emerald 500 */
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        /* Top Action Buttons */
+        .action-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            z-index: 30;
+        }
+
+        .promo-bubble {
+            position: absolute;
+            left: 52px;
+            top: 50%;
+            transform: translateY(-50%) translateX(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 6px 14px;
+            border-radius: 30px;
+            white-space: nowrap;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 25;
+            transition: border-color 0.3s ease;
+        }
+
+        .promo-bubble strong {
+            color: #fff;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .promo-bubble i {
+            font-size: 8px;
+            color: #fff;
+        }
+
+        .promo-bubble::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 5px solid rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 380px) {
+            .promo-bubble {
+                padding: 5px 10px;
+                font-size: 9px;
+                left: 48px;
+            }
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(255, 255, 255, 1);
+            transform: scale(1.05) translateY(-2px);
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .action-btn i {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .action-btn:hover i {
+            color: #000;
+        }
+
+        .action-btn img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            transition: filter 0.3s ease;
+        }
+
+        .action-btn:hover img {
+            filter: brightness(0);
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-black z-50 flex items-center justify-center pointer-events-none">
+        <div id="loader-line" class="absolute top-0 left-0 h-[2px] bg-gray-500 w-0 shadow-none"></div>
+
+        <!-- Logo Container - Gradient Text -->
+        <h1 id="loader-logo"
+            class="font-['Syncopate'] text-4xl md:text-6xl font-bold tracking-widest flex items-center justify-center overflow-hidden text-[#555]">
+            <span class="loader-char opacity-0 inline-block translate-y-4">R</span>
+            <span class="loader-char opacity-0 inline-block translate-y-4">O</span>
+            <span class="loader-char opacity-0 inline-block translate-y-4">G</span>
+            <span class="loader-char opacity-0 inline-block translate-y-4">E</span>
+            <span class="loader-char opacity-0 inline-block translate-y-4">R</span>
+        </h1>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="ambient-bg"></div>
+    <div class="scanlines"></div>
+
+    <!-- Main Container -->
+    <main
+        class="relative z-20 w-full h-[100svh] flex flex-col items-center justify-start md:justify-center px-6 pt-4 md:pt-6 pb-2 bg-transparent">
+
+        <!-- Top Navigation -->
+        <div class="w-full max-w-md flex items-center justify-between mb-4 md:mb-8 reveal-item">
+            <div class="relative flex items-center">
+                <a href="https://www.gravitycard.space" target="_blank" class="action-btn">
+                    <img src="logo.png" alt="Logo">
+                </a>
+                <a href="https://www.gravitycard.space" target="_blank" id="promo-bubble" class="promo-bubble">
+                    <span>Want a card like this? <strong>Get it here</strong></span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+
+            <!-- Mobile EST 2026 -->
+            <p class="text-[10px] tracking-[0.3em] text-gray-500 uppercase reveal-item font-light md:hidden mt-2">Est.
+                2026</p>
+
+            <button onclick="shareSite()" class="action-btn" aria-label="Share">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            </button>
+        </div>
+
+        <!-- Content Wrapper (Centers Header + Links) -->
+        <div
+            class="w-full max-w-md flex flex-col items-center justify-start md:justify-center flex-1 -mt-[20px] md:-mt-[70px]">
+
+            <!-- Header Section -->
+            <header class="text-center mb-8 md:mb-16 flex flex-col items-center brand-container cursor-default">
+                <p
+                    class="text-xs tracking-[0.6em] text-gray-500 uppercase mb-5 opacity-0 reveal-item font-light hidden md:block">
+                    Est.
+                    2026</p>
+                <h1 class="brand-name text-6xl md:text-7xl font-bold mb-3 opacity-0 reveal-item leading-none">ROGER</h1>
+                <p
+                    class="text-[10px] md:text-sm uppercase tracking-[0.4em] md:tracking-[0.6em] text-gray-400 opacity-0 reveal-item">
+                    Premium Apparel
+                </p>
+            </header>
+
+            <!-- Links Section -->
+            <section class="flex flex-col gap-5 w-full -mt-[15px]">
+
+                <!-- Website Link -->
+                <a href="#"
+                    class="group link-card auto-shine w-full py-5 px-6 flex items-center justify-between rounded-none opacity-0 reveal-item">
+                    <span class="flex items-center gap-5">
+                        <i class="fa-solid fa-globe text-lg text-gray-400 link-icon w-6 text-center"></i>
+                        <span class="font-medium tracking-widest text-xs uppercase link-text">Visit Website</span>
+                    </span>
+                    <i
+                        class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform duration-500 text-gray-500 group-hover:text-black"></i>
+                </a>
+
+                <!-- Phone Link -->
+                <a href="tel:+94700000000"
+                    class="group link-card w-full py-5 px-6 flex items-center justify-between rounded-none opacity-0 reveal-item">
+                    <span class="flex items-center gap-5">
+                        <i class="fa-solid fa-phone text-lg text-gray-400 link-icon w-6 text-center"></i>
+                        <span class="font-medium tracking-widest text-xs uppercase link-text">Call Us</span>
+                    </span>
+                    <span
+                        class="text-[10px] text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:text-black tracking-widest">+94
+                        77 123 4567</span>
+                </a>
+
+                <!-- WhatsApp Link -->
+                <a href="https://wa.me/94700000000"
+                    class="group link-card w-full py-5 px-6 flex items-center justify-between rounded-none opacity-0 reveal-item">
+                    <span class="flex items-center gap-5">
+                        <i class="fa-brands fa-whatsapp text-lg text-gray-400 link-icon w-6 text-center"></i>
+                        <span class="font-medium tracking-widest text-xs uppercase link-text">WhatsApp</span>
+                    </span>
+                    <i
+                        class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform duration-500 text-gray-500 group-hover:text-black"></i>
+                </a>
+
+                <!-- Facebook Link -->
+                <a href="https://facebook.com/rogerbrand"
+                    class="group link-card w-full py-5 px-6 flex items-center justify-between rounded-none opacity-0 reveal-item">
+                    <span class="flex items-center gap-5">
+                        <i class="fa-brands fa-facebook-f text-lg text-gray-400 link-icon w-6 text-center"></i>
+                        <span class="font-medium tracking-widest text-xs uppercase link-text">Facebook</span>
+                    </span>
+                    <i
+                        class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform duration-500 text-gray-500 group-hover:text-black"></i>
+                </a>
+
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center opacity-0 reveal-item py-3 mt-auto w-full flex flex-col items-center gap-2">
+            <p class="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-medium">© 2026 <a
+                    href="https://www.gravitycard.space" target="_blank"
+                    class="hover:text-white transition-colors duration-300">Gravity Card</a>. All Rights
+                Reserved.</p>
+            <div class="flex items-center gap-2">
+                <span class="pulsing-dot"></span>
+                <p class="text-[9px] text-gray-700 uppercase tracking-widest font-semibold">Powered by <a
+                        href="https://pixelplusewp.online" target="_blank"
+                        class="hover:text-white transition-colors duration-300">PixelPluse WP</a></p>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // Animation Script using GSAP
+        document.addEventListener('DOMContentLoaded', () => {
+            const masterTimeline = gsap.timeline();
+
+            // 1. Preloader Animation (Max ~1.5s)
+            masterTimeline
+                // Line shoots across (1s)
+                .to("#loader-line", {
+                    width: "100%",
+                    duration: 1.0,
+                    ease: "expo.out"
+                })
+                // Letters reveal staggered (Start at 0.1s)
+                .to(".loader-char", {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    stagger: 0.08,
+                    ease: "back.out(1.7)"
+                }, "-=0.9")
+                // Logo Pulse (Scale only, Gradient provides the look)
+                .to("#loader-logo", {
+                    scale: 1.05,
+                    duration: 0.3,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: "sine.inOut"
+                }, "-=0.4")
+                // Fade out preloader
+                .to("#preloader", {
+                    opacity: 0,
+                    duration: 0.4,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        document.querySelector("#preloader").style.display = "none";
+                    }
+                });
+
+            // 2. Main Site Reveal (Starts as preloader fades)
+            masterTimeline.fromTo(".reveal-item",
+                {
+                    y: 30,
+                    opacity: 0,
+                    filter: "blur(10px)"
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.0,
+                    stagger: 0.1,
+                    ease: "power3.out"
+                },
+                "-=0.2"
+            );
+
+            // 3. Promo Message Looping Animation
+            const promoBubble = document.getElementById('promo-bubble');
+
+            const startPromoAnimation = () => {
+                const promoTl = gsap.timeline({ repeat: -1 });
+
+                promoTl
+                    // Appear
+                    .to(promoBubble, {
+                        opacity: 1,
+                        x: 0,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        pointerEvents: "auto"
+                    })
+                    // Stay for 5s
+                    .to({}, { duration: 5 })
+                    // Disappear
+                    .to(promoBubble, {
+                        opacity: 0,
+                        x: -10,
+                        duration: 0.6,
+                        ease: "power2.in",
+                        pointerEvents: "none"
+                    })
+                    // Wait for 5s
+                    .to({}, { duration: 5 });
+            };
+
+            // Start promo animation 1.5s after the main reveal starts
+            gsap.delayedCall(1.5, startPromoAnimation);
+
+            // Ambient Background Animation (CSS handles the pulse, GSAP handles optional movement if needed)
+            // Just leaving this clean as the CSS animation handles the loop.
+        });
+
+        // Share Functionality
+        async function shareSite() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'ROGER | Premium Clothing',
+                        text: 'Check out ROGER - Premium Clothing Brand.',
+                        url: window.location.href
+                    });
+                    console.log('Successfully shared');
+                } catch (error) {
+                    console.log('Error sharing:', error);
+                }
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                alert('Link copied to clipboard!');
+            }
+        }
+    </script>
+</body>
+
+</html>
